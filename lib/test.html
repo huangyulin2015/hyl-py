@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>test unicode</title>
+    <script src="py.js"></script>
+    <script>
+        function chr2Unicode(str) {
+            var a = [],
+                    i = 0;
+            for (; i < str.length;) {
+                a[i] = ("00" + str.charCodeAt(i++).toString(16)).slice(-4);
+
+            }
+            return "\\u" + a.join("\\u")
+        }
+
+        for(var key in py){
+            if(py.hasOwnProperty(key)){
+                var a = py[key];
+//                var _str = chr2Unicode(a.join(","));
+//                var _arr=_str.split("\\u002c");
+//                py[key]=_arr;
+                console.log(a);
+            }
+        }
+//        document.write(JSON.stringify(py));
+//        console.info(py);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
