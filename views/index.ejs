@@ -1,11 +1,14 @@
 <h1><%= title %></h1>
 <p>Welcome to <%= title %></p>
 <input type='text' id='key' /><br/>
-<input type='button' id='btn_find' value='FindKey' onclick='findKey();'/>
-<script>
+<div id='show'></div>
+
+
+<!--<script>
     function findKey(){
         var _key=document.getElementById('key').value;
         window.location.href='/py/' + _key;
     }
 
-</script>
+</script>-->
+<script src='../javascripts/client_py.js'></script>
