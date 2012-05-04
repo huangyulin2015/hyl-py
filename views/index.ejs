@@ -1,8 +1,9 @@
 <h1><%= title %></h1>
 <p>Welcome to <%= title %></p>
-<input type='text' id='key' /><br/>
-<div id='show'></div>
-
+<!--<input type='text' id='key' /><br/>-->
+<div id='show'></div><br/>
+<input type="text" id="inp"/><br/>
+<input type="button" value="SendMsg" onclick="sendMsg()"/>
 
 <!--<script>
     function findKey(){
@@ -11,4 +12,6 @@
     }
 
 </script>-->
-<script src='../javascripts/client_py.js'></script>
+
+ <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+ <script src='../javascripts/client_py.js'></script>

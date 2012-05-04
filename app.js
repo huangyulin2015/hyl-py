@@ -3,10 +3,16 @@
  */
 
 var express = require('express')
-    , routes = require('./routes');
+    , routes = require('./routes'),io = require('socket.io'),utils=require('util'),py=require('./lib/py');
 
-var app = module.exports = express.createServer();
-
+var app = module.exports = express.createServer(),io = io.listen(app);
+io.sockets.on('connection', function (socket) {
+    socket.on('msg', function (data) {
+        py.findPy(data,function(words){
+            socket.emit('msg', utils.inspect(words));
+        });
+    });
+});
 // Configuration
 
 app.configure(function () {
@@ -31,8 +37,8 @@ app.configure('production', function () {
 // Routes
 
 app.get('/', routes.index);
-app.get('/py/:key', routes.py);
+//app.get('/py/:key', routes.py);
 
-app.listen(3000, function () {
+app.listen(8080, function () {
     console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

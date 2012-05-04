@@ -1,3 +1,4 @@
+var _socket = io.connect("http://localhost:8080");
 Array.prototype.uniq = function () {
     var temp = {}, len = this.length;
 
@@ -75,7 +76,7 @@ function separatedPY(key) {
 //        _index === 0 ? _tmpStr = item : ((_tmpArr2 = _splitPy(_tmpStr), _tmpArr2.length > 0 ) ? _tmpStr += item : _keyArr.push(_tmpStr));
             if (_index === 0 || _index === _in) {
                 _tmpStr = item;
-                if(_arr.length===1){
+                if (_arr.length === 1) {
                     _keyArr.push(item);
                 }
             } else {
@@ -157,15 +158,23 @@ var req = {
 }
 
 window.onload = function () {
-    var _input = document.getElementById('key'), _div = document.getElementById('show');
+    _socket.on('connect', function () {
+        _socket.on('msg', function (data) {
+            console.log('server return data:\t' + data);
+            var _div = document.getElementById('show');
+            var _arr = eval('(' + data + ')');
+            _div.innerHTML = _arr.join('  ');
+
+        });
+    });
+
+    var _input = document.getElementById('inp');
     _input.addEventListener('input', function () {
         setTimeout(function () {
             var _value = separatedPY(_input.value);
-            if (_value)
-                req.send('/py/' + _value, "GET", null, function (_respText) {
-                    var _arr = eval('(' + _respText + ')');
-                    _div.innerHTML = _arr.join('  ');
-                });
+            if (_value) {
+                _socket.emit('msg', _value);
+            }
             else
                 _div.innerHTML = '';
         }, 500);
